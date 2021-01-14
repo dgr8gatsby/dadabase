@@ -1,0 +1,22 @@
+{
+  "name": "dadabase",
+  "version": "1.0.0",
+  "description": "an app for dadjokes",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dgr8gatsby/dadabase.git"
+  },
+  "keywords": [
+    "dadjokes"
+  ],
+  "author": "Kevin Hill",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dgr8gatsby/dadabase/issues"
+  },
+  "homepage": "https://github.com/dgr8gatsby/dadabase#readme"
+}

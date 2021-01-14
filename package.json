@@ -5,6 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "jest",
+    "build": "rollup -c",
+    "watch": "rollup -c -w",
     "start": "nodemon server.js"
   },
   "repository": {

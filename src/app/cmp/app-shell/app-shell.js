@@ -10,12 +10,14 @@ export default class AppShell extends HTMLElement {
     });
   }
 
+  props = {};
+
   connectedCallback () {
     this.render ();
   }
 
   render () {
-    this.shadowRoot.innerHTML = template (style);
+    this.shadowRoot.innerHTML = template (style, this.props);
   }
 }
 

@@ -42,6 +42,10 @@ export default `
         align-self: center; 
         justify-self: center;
     }
+
+    .hide {
+        display:none;
+    }
 `;
 
 // https://css-tricks.com/things-ive-learned-css-grid-layout/

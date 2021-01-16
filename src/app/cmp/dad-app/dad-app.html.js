@@ -2,14 +2,15 @@ export default (style, _props) => `
 <style>${style}</style>
 <div class="grid">
     <header class="header">
-        Dad Jokes
+        
         <nav>nav</nav>
     </header>
     <main class="wide">
         <p name="screens"></p>
     </main>
     <footer class="wide">
-        Dadjokes are served to you with 💛 from a Dadabase
+        <div>Dadjokes are served to you with 💛 from a Dadabase</div>
+        <div class="hide">A joke is added to our Dadabase when it is apparent</div>
     </footer>
 </div>
 `;

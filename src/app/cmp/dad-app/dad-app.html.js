@@ -6,10 +6,10 @@ export default (style, _props) => `
         <nav>nav</nav>
     </header>
     <main class="wide">
-        Main
+        <p name="screens"></p>
     </main>
     <footer class="wide">
-        footer
+        Dadjokes are served to you with 💛 from a Dadabase
     </footer>
 </div>
 `;

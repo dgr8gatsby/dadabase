@@ -1,5 +1,5 @@
-export default style => `
-<style>${style.css}</style>
+export default (style, props) => `
+<style>${style}</style>
 <article class='primary'>
     <p class='joke'>
         <section class='headline'>${props.headline}</section>

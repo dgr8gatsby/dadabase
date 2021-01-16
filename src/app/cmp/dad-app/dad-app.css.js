@@ -19,7 +19,7 @@ export default `
             heigth: 100vh;
         }
         main {
-            padding: 10px;
+            padding: 50px;
             font-size: 10vw;
             align-self: center; 
         }
@@ -30,7 +30,7 @@ export default `
     }
 
     main {
-        padding: 10px;
+        padding: 50px;
         font-size: 8vw;
     }
 
@@ -40,6 +40,7 @@ export default `
 
     footer {
         align-self: center; 
+        justify-self: center;
     }
 `;
 

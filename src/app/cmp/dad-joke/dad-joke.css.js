@@ -4,14 +4,13 @@ export default `
 }
 
 .headline {
-    font-size: 8vw;
+    font-size= 6vw;
 }
 
 .punchline {
-    font-size: 6vw;
-    margin-top: var(--app-margin-top, 25px);
+    font-size: 4vw;
+    margin-top: var(--app-margin-top, 50px);
     text-align:right;
-    
 }
 
 .why {

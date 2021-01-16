@@ -24,7 +24,7 @@ export default {
         {src: 'src/app/index.css', dest: 'public'},
         {src: 'src/app/favicon.ico', dest: 'public'},
         {src: 'src/app/svg/*', dest: 'public/svg'},
-        {src: 'src/app/screens', dest: 'public'},
+        {src: 'src/app/cmp', dest: 'public'},
       ],
     }),
   ],

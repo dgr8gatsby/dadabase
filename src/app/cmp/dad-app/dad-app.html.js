@@ -2,8 +2,16 @@ export default (style, _props) => `
 <style>${style}</style>
 <div class="grid">
     <header class="header">
+        <div class="logo"><img class="logo" src='svg/mustache.svg'/></div>
         <nav>
-            <dad-link link-name="View Joke" link-route="dad-joke"></dad-link>
+            <ul>    
+                <li>
+                    <dad-link link-name="View Joke" link-route="dad-joke"></dad-link>
+                </li>
+                <li>
+                    <dad-link link-name="About" link-route="dad-about"></dad-link>
+                </li>
+            </ul>
         </nav>
     </header>
     <main class="wide">

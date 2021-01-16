@@ -40,7 +40,6 @@ export default class DadLink extends HTMLElement {
   connectedCallback () {
     this.addEventListener ('click', this.handleClick, false);
     this.render ();
-    console.log (`dad-link is rendered. name:${this.name} route:${this.route}`);
   }
 
   props = {

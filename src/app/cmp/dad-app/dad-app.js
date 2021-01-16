@@ -2,7 +2,9 @@ const ELEMENT_NAME = 'dad-app';
 import template from './dad-app.html.js';
 import style from './dad-app.css.js';
 import _DadLink from '../dad-link/dad-link.js';
+import _DadError from '../dad-error/dad-error.js';
 const DEFAULT_SCREEN = 'dad-joke';
+const ERROR_COMPONENT = 'dad-error';
 
 export default class DadApp extends HTMLElement {
   constructor () {
@@ -23,20 +25,21 @@ export default class DadApp extends HTMLElement {
 
   // Dynamically load components
   async loadScreen (name = DEFAULT_SCREEN) {
-    // if (customElements.get (name) != undefined) {
-    //   this.displayScreen (name);
-    // } else {
-    try {
+    if (customElements.get (name) != undefined) {
+      this.displayScreen (name);
+    } else {
       let screenPath = `./cmp/${name}/${name}.js`;
-      const screenConstructor = await import (screenPath);
+      const screenConstructor = await import (screenPath)
+        .catch (console.error)
+        .then (() => {
+          let message = `${name} element might not exist just yet, this is the ${screenPath}`;
+          console.error (message, 'ModuleLoad');
+          this.displayScreen (ERROR_COMPONENT);
+          return;
+        });
       this.screen = screenConstructor;
       this.displayScreen (name);
-    } catch (e) {
-      err = new Error (`${name}.js might not exist, this is the ${screenPath}`);
-      err.name = `ModuleLoad`;
-      throw err;
     }
-    // }
   }
 
   // Render a component in the placeholder for a screen

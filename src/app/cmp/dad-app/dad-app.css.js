@@ -46,6 +46,29 @@ export default `
         justify-self: center;
     }
 
+    header {
+        display: flex;
+        align-items: center;
+        margin: 2em;
+    }
+
+    .logo, nav{
+        flex: 1;
+    }
+
+    dad-link {
+        
+    }
+
+    nav ul {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    nav li {
+        list-style: none;
+    }
+
     .hide {
         display:none;
     }

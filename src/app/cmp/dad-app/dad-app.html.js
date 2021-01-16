@@ -2,7 +2,7 @@ export default (style, _props) => `
 <style>${style}</style>
 <div class="grid">
     <header class="header">
-        header
+        Dad Jokes
         <nav>nav</nav>
     </header>
     <main class="wide">

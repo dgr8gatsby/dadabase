@@ -25,6 +25,9 @@ export default `
         }
     }
 
+    .header{
+        margin-top: 15px;
+    }
     .wide, .hero, .header, .footer {
         grid-column: 1/-1
     }

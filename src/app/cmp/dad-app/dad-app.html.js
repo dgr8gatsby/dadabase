@@ -2,8 +2,9 @@ export default (style, _props) => `
 <style>${style}</style>
 <div class="grid">
     <header class="header">
-        
-        <nav>nav</nav>
+        <nav>
+            <dad-link link-name="View Joke" link-route="dad-joke"></dad-link>
+        </nav>
     </header>
     <main class="wide">
         <p name="screens"></p>

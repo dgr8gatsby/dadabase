@@ -8,7 +8,7 @@ export default (style, _props) => `
     <main class="wide">
         Main
     </main>
-    <footer class="footer">
+    <footer class="wide">
         footer
     </footer>
 </div>

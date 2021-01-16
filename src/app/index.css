@@ -1,7 +1,7 @@
 :root {
     --app-font-family: 'Helvetica';
     --app-background-color: #FDFBD0;
-    --app-font-size: calc(42px + 0.9vw);
+    --app-font-size: calc(56px + 0.9vw);
 }
 
 html {

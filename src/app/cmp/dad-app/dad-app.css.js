@@ -3,6 +3,50 @@ export default `
         font-family: var (--app-font-family);
     }
 
+    .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: 50px calc(100vh - 100px) 50px;
+        width: 100vw;
+    }
+
+    /* Large Screen */
+    @media (min-width: 700px) {
+        .grid {
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: 100px calc(100vh - 200px) 100px;
+            width: 100vw;
+            heigth: 100vh;
+        }
+        main {
+            padding: 10px;
+            font-size: 10vw;
+            align-self: center; 
+        }
+    }
+
+    .wide, .hero, .header, .footer {
+        grid-column: 1/-1
+    }
+
+    main {
+        padding: 10px;
+        font-size: 8vw;
+    }
+
+    footer, header {
+        padding: 10px;
+    }
+
+    footer {
+        align-self: center; 
+    }
+`;
+
+// https://css-tricks.com/things-ive-learned-css-grid-layout/
+
+/*
+Example 
     .span4 .span6 .spanAll {
         grid-column-end: span -1;
     }
@@ -15,26 +59,4 @@ export default `
             grid-column-end: span 6;
         }
     }
-
-    .grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-auto-rows: 50px calc(100vh - 100px) 50px;
-        width: 100vw;
-    }
-
-    @media (min-width: 700px) {
-        .grid {
-            grid-template-columns: repeat(12, 1fr);
-            grid-template-rows: 100px calc(100vh - 200px) 100px;
-            width: 100vw;
-            heigth: 100vh;
-        }
-    }
-
-    .wide, .hero, .header, .footer {
-        grid-column: 1/-1
-    }
-`;
-
-// https://css-tricks.com/things-ive-learned-css-grid-layout/
+*/

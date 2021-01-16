@@ -8,11 +8,6 @@ export default (style, _props) => `
                 <li>
                     <dad-link link-name="View Joke" link-route="dad-joke"></dad-link>
                 </li>
-                <!--
-                    <li>
-                        <dad-link link-name="About" link-route="dad-about"></dad-link>
-                    </li>
-                -->
             </ul>
         </nav>
     </header>
@@ -20,7 +15,7 @@ export default (style, _props) => `
         <p name="screens"></p>
     </main>
     <footer class="wide">
-        <div>Dadjokes are served to you with 💛 from a Dadabase</div>
+        <div>Served with 💛 from a Dadabase</div>
         <div class="hide">A joke is added to our Dadabase when it is apparent</div>
     </footer>
 </div>

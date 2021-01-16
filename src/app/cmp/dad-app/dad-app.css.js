@@ -56,13 +56,9 @@ export default `
         flex: 1;
     }
 
-    dad-link {
-        
-    }
-
     nav ul {
         display: flex;
-        justify-content: space-around;
+        justify-content: flex-end;
     }
 
     nav li {

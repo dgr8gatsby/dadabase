@@ -2,9 +2,7 @@ const ELEMENT_NAME = 'dad-app';
 import template from './dad-app.html.js';
 import style from './dad-app.css.js';
 import _DadLink from '../dad-link/dad-link.js';
-import _DadError from '../dad-error/dad-error.js';
 const DEFAULT_SCREEN = 'dad-joke';
-const ERROR_COMPONENT = 'dad-error';
 
 export default class DadApp extends HTMLElement {
   constructor () {
@@ -34,7 +32,6 @@ export default class DadApp extends HTMLElement {
         .then (() => {
           let message = `${name} element might not exist just yet, this is the ${screenPath}`;
           console.error (message, 'ModuleLoad');
-          this.displayScreen (ERROR_COMPONENT);
           return;
         });
       this.screen = screenConstructor;

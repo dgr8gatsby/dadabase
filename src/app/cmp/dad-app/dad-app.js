@@ -10,15 +10,6 @@ export default class DadApp extends HTMLElement {
   constructor () {
     super ();
     this.handleNavigate = this.handleNavigate.bind (this);
-    let joke = {
-      _id: '5ff2a2559a9139b56320de0b',
-      __v: 0,
-      headline: 'What is a pirates favorite letter?',
-      punchline: "You might think that it is 'R' but they really like the 'C'",
-      type: 'question',
-      why: "This joke is usually told after another pirate joke where the punchline is 'Arrr.' So people will think that the answer is 'R' to equate to the Arrr saying of a pirate, however this joke has a twist and says C meaning 'Sea' since pirates are always on ships in the sea.",
-    };
-    let _testDadJoke = new DadJoke (joke);
     this.shadow = this.attachShadow ({
       mode: 'open',
     });
@@ -35,7 +26,7 @@ export default class DadApp extends HTMLElement {
   // Dynamically load components
   async loadScreen (name = DEFAULT_SCREEN) {
     if (customElements.get (name) != undefined) {
-      this.displayScreen (name);
+      this.fetchRandomJoke ();
     } else {
       let screenPath = `./cmp/${name}/${name}.js`;
       const screenConstructor = await import (screenPath)
@@ -46,15 +37,30 @@ export default class DadApp extends HTMLElement {
           return;
         });
       this.screen = screenConstructor;
-      this.displayScreen (name);
+      this.fetchRandomJoke ();
     }
   }
+
+  async fetchRandomJoke () {
+    const response = await fetch ('/api/random');
+    let joke = await response.json ();
+    this.displayJoke (joke);
+  }
+
+  async fetchJokeById (id) {}
 
   // Render a component in the placeholder for a screen
   displayScreen (name) {
     const screenElement = this.shadowRoot.querySelector ("p[name='screens']");
     screenElement.innerHTML = '';
     screenElement.innerHTML = `<${name}></${name}>`;
+  }
+
+  displayJoke (joke) {
+    let RandomtDadJoke = new DadJoke (joke);
+    const screenElement = this.shadowRoot.querySelector ("p[name='screens']");
+    screenElement.innerHTML = '';
+    screenElement.appendChild (RandomtDadJoke);
   }
 
   connectedCallback () {

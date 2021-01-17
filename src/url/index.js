@@ -3,7 +3,6 @@ const mongoose = require ('mongoose'); // Use Mongoose for data schema
 const jokeSchema = require ('../models/joke.js');
 const express = require ('express');
 const router = express.Router ();
-const data = require ('../data/jokes.json');
 
 // End point for returing one random joke from the Mongo database
 router.get ('/joke/:id', (req, res) => {
@@ -15,7 +14,7 @@ router.get ('/joke/:id', (req, res) => {
 
   // Reference the schema for a Joke
   const Joke = jokeSchema;
-  let specificJoke = Joke.find ({_id: req.params.id}, (err, joke) => {
+  Joke.find ({_id: req.params.id}, (err, joke) => {
     if (err) {
       console.log (err);
       res.status (404).send ('Joke Not Found');

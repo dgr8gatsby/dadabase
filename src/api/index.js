@@ -1,4 +1,4 @@
-const mongo = require ('./mongo.config'); // Use Mongo db for data management
+const mongo = require ('../../mongo.config'); // Use Mongo db for data management
 const mongoose = require ('mongoose'); // Use Mongoose for data schema
 const jokeSchema = require ('../models/joke.js');
 const express = require ('express');
@@ -64,6 +64,7 @@ router.get ('/random', (req, res) => {
     }
   });
 });
+
 // End point to load sample jokes into the database
 router.get ('/loaddata', (req, res) => {
   // Connect to the Mongoose DB

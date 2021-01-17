@@ -3,26 +3,107 @@ import template from './dad-joke.html.js';
 import style from './dad-joke.css.js';
 
 export default class DadJoke extends HTMLElement {
-  constructor () {
+  constructor (props = {}) {
     super ();
-
+    if (Object.keys (props).length === 0 && props.constructor === Object) {
+      this.fetchRandomJoke ();
+    } else {
+      this.initializeAttributes (props);
+    }
     this.attachShadow ({
       mode: 'open',
     });
   }
 
+  static get observedAttributes () {
+    return [
+      'joke-headline',
+      'joke-punchline',
+      'joke-type',
+      'joke-id',
+      'joke-why',
+    ];
+  }
+
+  get headline () {
+    return this.getAttribute ('joke-headline');
+  }
+  set headline (value) {
+    this.setAttribute ('joke-headline', value);
+    this.props.headline = value;
+  }
+
+  get punchline () {
+    return this.getAttribute ('joke-punchline');
+  }
+  set punchline (value) {
+    this.setAttribute ('joke-punchline', value);
+    this.props.punchline = value;
+  }
+
+  get type () {
+    return this.getAttribute ('joke-type');
+  }
+  set type (value) {
+    this.setAttribute ('joke-type', value);
+    this.props.type = value;
+  }
+
+  get why () {
+    return this.getAttribute ('joke-why');
+  }
+  set why (value) {
+    this.setAttribute ('joke-type', value);
+    this.props.why = value;
+  }
+
+  get id () {
+    return this.getAttribute ('joke-id');
+  }
+  set id (value) {
+    this.setAttribute ('joke-id', value);
+    this.props.id = value;
+  }
+
+  attributeChangedCallback (attribute, oldValue, newValue) {
+    if (
+      this.id != null &&
+      this.why != null &&
+      this.headline != null &&
+      this.punchline != null &&
+      this.type != null
+    ) {
+      this.render ();
+    }
+  }
+
   props = {
-    _id: '5fe69c4f842ba5a859b21416',
-    type: 'question',
-    headline: 'loading...',
-    punchline: 'loading...',
+    _id: '',
+    type: '',
+    headline: '',
+    punchline: '',
+    why: '',
     __v: 0,
   };
 
-  async connectedCallback () {
+  async fetchRandomJoke () {
     const response = await fetch ('/api/random');
     this.props = await response.json ();
-    console.log (this.props);
+    this.render ();
+  }
+
+  initializeAttributes (initProps) {
+    if (initProps._id !== undefined) {
+      this.props = initProps;
+      this.id = this.props._id;
+      this.headline = this.props.headline;
+      this.punchline = this.props.punchline;
+      this.why = this.props.why;
+      this.type = this.props.type;
+    }
+  }
+
+  connectedCallback () {
     this.render ();
   }
 

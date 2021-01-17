@@ -7,3 +7,4 @@ tie4.svg - https://thenounproject.com/search/?q=Dad&i=537568
 tie5.svg - https://thenounproject.com/search/?q=Dad&i=3383497
 funny_dad.svg - https://thenounproject.com/search/?q=Dad&i=143320
 mom.svg - https://thenounproject.com/search/?q=mom&i=3485806
+sad_dad.svg - https://thenounproject.com/search/?q=sad+dad&i=143323

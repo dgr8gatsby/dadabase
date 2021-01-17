@@ -9,6 +9,8 @@ const url = require ('./src/url');
 const app = express ();
 const PORT = process.env.PORT;
 
+app.set ('view engine', 'ejs');
+app.set ('views', './src/api/views');
 app.use (bodyParser.urlencoded ({extended: true}));
 app.use (express.static (path.join (__dirname, 'public')));
 app.use ('/', url);

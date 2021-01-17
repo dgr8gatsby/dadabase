@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dad Jokes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="The dad joke application that makes dad jokes better, for all of us!" />
+    <link rel="stylesheet" href="../../index.css" />
+    <style>
+        body {
+            width: 90%;
+            height: 90%;
+            padding: 20px;
+        }
+
+        dad-joke::part(headline) {
+            font-size: 6vw;
+        }
+    </style>
+</head>
+
+<body>
+    <dad-joke joke-id='<%= _id%>' joke-headline='<%=headline%>' joke-punchline='<%= punchline%>' joke-type='<%= type%>'
+        joke-why='<%= why%>'>
+    </dad-joke>
+    <script src='../../cmp/dad-joke/dad-joke.js' type='module'></script>
+
+</body>
+
+</html>

@@ -20,7 +20,8 @@ router.get ('/joke/:id', (req, res) => {
       console.log (err);
       res.status (404).send ('Joke Not Found');
     } else {
-      res.send (joke[0]);
+      console.log (joke[0]);
+      res.render ('onejoke', joke[0]); //(joke[0]);
     }
   });
 });

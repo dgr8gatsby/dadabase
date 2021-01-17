@@ -5,11 +5,7 @@ import style from './dad-joke.css.js';
 export default class DadJoke extends HTMLElement {
   constructor (props = {}) {
     super ();
-    if (Object.keys (props).length === 0 && props.constructor === Object) {
-      this.fetchRandomJoke ();
-    } else {
-      this.initializeAttributes (props);
-    }
+    this.initializeAttributes (props);
     this.attachShadow ({
       mode: 'open',
     });
@@ -100,6 +96,15 @@ export default class DadJoke extends HTMLElement {
       this.punchline = this.props.punchline;
       this.why = this.props.why;
       this.type = this.props.type;
+    } else if (this.id !== undefined && this.id !== null && this.id != '') {
+      this.props._id = this.id;
+      this.props.headline = this.headline;
+      this.props.punchline = this.punchline;
+      this.props.why = this.props.why;
+      this.props.type = this.props.type;
+    } else {
+      // Temporary, need to remove data fetch from component completely.
+      this.fetchRandomJoke ();
     }
   }
 

@@ -61,7 +61,7 @@ router.get ('/random', (req, res) => {
       console.log (err);
     } else {
       // Generate an etag for a joke using _id + _version of document
-      res.set ('etag', `${joke[0]._id}_${joke[0]._v}`);
+      res.set ('etag', `${joke[0]._id}_${joke[0].revision}`);
       res.send (joke[0]);
     }
   });

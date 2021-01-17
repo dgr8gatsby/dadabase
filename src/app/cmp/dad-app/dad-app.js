@@ -58,6 +58,7 @@ export default class DadApp extends HTMLElement {
 
   displayJoke (joke) {
     let RandomtDadJoke = new DadJoke (joke);
+
     const screenElement = this.shadowRoot.querySelector ("p[name='screens']");
     screenElement.innerHTML = '';
     screenElement.appendChild (RandomtDadJoke);

@@ -2,7 +2,7 @@ export default (style, _props) => `
 <style>${style}</style>
 <div class="grid">
     <header class="header">
-        <div class="logo"><img class="logo" src='svg/mustache.svg'/></div>
+        <div class="logo"><img class="logo" src='svg/mustache.svg' alt='a mustache icon used for a logo'/></div>
         <nav>
             <ul>    
                 <li>

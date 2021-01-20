@@ -3,7 +3,7 @@
     "short_name": "Dad Jokes",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "##FDFBD0",
+    "background_color": "#FDFBD0",
     "description": "A dad joke app.",
     "icons": [
         {

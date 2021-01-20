@@ -15,6 +15,9 @@ app.use (bodyParser.urlencoded ({extended: true}));
 app.use (express.static (path.join (__dirname, 'public')));
 app.use ('/', url);
 app.use ('/api', api);
+app.get ('/sw.js', (req, res) => {
+  res.sendFile (path.resolve (__dirname, 'public', 'sw.js'));
+});
 
 app.get ('*', function (req, res) {
   res.status (404).sendFile (path.join (__dirname, 'public') + '/dad_404.html');

@@ -21,6 +21,7 @@ export default {
     copy ({
       targets: [
         {src: 'src/app/index.html', dest: 'public'},
+        {src: 'src/app/manifest.json', dest: 'public'},
         {src: 'src/app/index.css', dest: 'public'},
         {src: 'src/app/dad_404.html', dest: 'public'},
         {src: 'src/app/favicon.ico', dest: 'public'},

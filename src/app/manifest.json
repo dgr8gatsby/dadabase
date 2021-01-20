@@ -1,0 +1,15 @@
+{
+    "name": "Dad Jokes",
+    "short_name": "Dad Jokes",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "##FDFBD0",
+    "description": "A dad joke app.",
+    "icons": [
+        {
+            "src": "svg/mustache.svg",
+            "sizes": "any",
+            "type": "image/svg"
+        }
+    ]
+}

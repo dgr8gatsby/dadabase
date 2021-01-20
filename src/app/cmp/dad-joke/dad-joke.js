@@ -1,5 +1,7 @@
 const ELEMENT_NAME = 'dad-joke';
 import template from './dad-joke.html.js';
+import templateOneLiner from './dad-joke-one-liner.html';
+
 import style from './dad-joke.css.js';
 
 export default class DadJoke extends HTMLElement {
@@ -113,7 +115,11 @@ export default class DadJoke extends HTMLElement {
   }
 
   render () {
-    this.shadowRoot.innerHTML = template (style, this.props);
+    if (this.props.type === 'oneliner') {
+      this.shadowRoot.innerHTML = templateOneLiner (style, this.props);
+    } else {
+      this.shadowRoot.innerHTML = template (style, this.props);
+    }
   }
 }
 

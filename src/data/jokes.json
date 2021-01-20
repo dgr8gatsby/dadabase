@@ -40,5 +40,11 @@
         "punchline": "You might think that it is 'R' but they really like the 'C'",
         "why": "This joke is usually told after another pirate joke where the punchline is 'Arrr.' So people will think that the answer is 'R' to equate to the Arrr saying of a pirate, however this joke has a twist and says C meaning 'Sea' since pirates are always on ships in the sea.",
         "revision": 0
+    },
+    {
+        "headline": "My friend told me that pepper is the best seasoning for a roast, but I took it with a grain of salt.",
+        "type": "oneliner",
+        "why": "test oneliner",
+        "revision": 0
     }
 ]

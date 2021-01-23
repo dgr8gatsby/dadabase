@@ -1,7 +1,6 @@
 const ELEMENT_NAME = 'dad-app';
 import template from './dad-app.html.js';
 import style from './dad-app.css.js';
-import _DadLink from '../dad-link/dad-link.js';
 import DadJoke from '../dad-joke/dad-joke.js';
 import Navigo from 'navigo';
 

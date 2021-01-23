@@ -104,9 +104,6 @@ export default class DadJoke extends HTMLElement {
       this.props.punchline = this.punchline;
       this.props.why = this.props.why;
       this.props.type = this.props.type;
-    } else {
-      // Temporary, need to remove data fetch from component completely.
-      this.fetchRandomJoke ();
     }
   }
 

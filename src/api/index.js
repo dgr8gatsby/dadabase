@@ -46,7 +46,9 @@ router.post ('/addjoke', (req, res) => {
   );
 });
 
-// End point for returing one random joke from the Mongo database
+/****************************************************************
+ * GET RANDOM JOKE
+ ****************************************************************/
 router.get ('/random', (req, res) => {
   // Connect to the Mongoose DB
   mongoose.connect (
@@ -67,7 +69,29 @@ router.get ('/random', (req, res) => {
   });
 });
 
-// End point to load sample jokes into the database
+/****************************************************************
+ * GET JOKES
+ ****************************************************************/
+router.get ('/jokes', async (req, res) => {
+  // Connect to the Mongoose DB
+  mongoose.connect (
+    mongo.config.URL + '/' + mongo.config.DB_NAME,
+    mongo.config.OPTIONS
+  );
+
+  jokeSchema.aggregate ([{$sample: {size: 10}}], (err, jokes) => {
+    if (err) {
+      console.log (err);
+    } else {
+      let ids = jokes.map (value => value._id);
+      res.send (ids);
+    }
+  });
+});
+
+/****************************************************************
+ * LOAD SAMPLE DATA
+ ****************************************************************/
 router.get ('/loaddata', (req, res) => {
   // Connect to the Mongoose DB
   mongoose.connect (

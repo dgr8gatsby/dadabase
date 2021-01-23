@@ -1,10 +1,10 @@
-const cacheName = 'staledadjokes';
+const cacheName = 'staledadjokes_v3';
 
 const APPFILES = [
   '/index.html',
-  //   '/index.css',
+  '/index.css',
   //   '/index.js',
-  //   '/favicon.ico',
+  '/favicon.ico',
   '/bundle.js',
   '/svg/mustache.svg',
 ];

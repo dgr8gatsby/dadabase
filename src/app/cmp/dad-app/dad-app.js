@@ -13,18 +13,11 @@ export default class DadApp extends HTMLElement {
     this.shadow = this.attachShadow ({
       mode: 'open',
     });
+    this.next = this.next.bind (this);
+    this.getInitialJokes ();
 
+    // handle application routes
     router.on ('/', async () => {});
-
-    router.on ('/coffee', () => {
-      alert ('coffee!');
-    });
-
-    router.on ('/random', async () => {
-      let joke = await this.fetchRandomJoke ();
-      this.currentJoke = joke;
-      router.navigate (`/joke/${joke._id}`);
-    });
 
     router.on ('/joke/:id', async url => {
       if (this.currentJoke !== null && this.currentJoke._id === url.data.id) {
@@ -33,11 +26,17 @@ export default class DadApp extends HTMLElement {
         this.fetchJokeById (url.data.id);
       }
     });
+
+    router.on ('/jokes', async url => {
+      const response = await fetch ('/api/jokes');
+      console.log (response);
+    });
   }
 
   props = {};
   screen = null;
-  currentJoke = null;
+  currentJoke = 0;
+  jokes = [];
 
   // Dynamically load components
   async loadScreen (name = DEFAULT_SCREEN) {
@@ -53,20 +52,19 @@ export default class DadApp extends HTMLElement {
           return;
         });
       this.screen = screenConstructor;
-      this.fetchRandomJoke ();
     }
-  }
-
-  async fetchRandomJoke () {
-    const response = await fetch ('/api/random');
-    let joke = await response.json ();
-    return joke;
   }
 
   async fetchJokeById (id) {
     const response = await fetch (`/api/joke/${id}`);
     let joke = await response.json ();
     this.displayJoke (joke);
+  }
+
+  async getInitialJokes () {
+    const response = await fetch ('/api/jokes');
+    this.jokes = await response.json ();
+    this.next ();
   }
 
   // Render a component in the placeholder for a screen
@@ -83,9 +81,20 @@ export default class DadApp extends HTMLElement {
     screenElement.appendChild (RandomdDadJoke);
   }
 
+  next () {
+    if (this.currentJoke < this.jokes.length - 1) {
+      this.currentJoke++;
+    } else {
+      this.currentJoke = 0;
+    }
+
+    router.navigate (`joke/${this.jokes[this.currentJoke]}`);
+    //this.fetchJokeById (this.jokes[this.currentJoke]);
+  }
   connectedCallback () {
     this.render ();
-    //this.loadScreen ();
+    const nextButton = this.shadowRoot.querySelector ("button[name='next']");
+    nextButton.addEventListener ('click', this.next);
   }
 
   render () {

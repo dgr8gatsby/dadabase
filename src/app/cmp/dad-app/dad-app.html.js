@@ -7,13 +7,12 @@ export default (style, _props) => `
         <nav>
             <ul>    
                 <li>
-                    <a href="#/random">View Joke</a>
+                    <a href="https://www.buymeacoffee.com/greatgatsby" target="_blank" rel="noopener">Buy me a ☕️</a>
                 </li>
-                <li>
-                    <a href="https://www.buymeacoffee.com/greatgatsby" target="_blank">Buy me a ☕️</a>
-                </li>
+
             </ul>
         </nav>
+        <button id="next" name="next">Next</button>
     </header>
     <main class="wide">
         <p name="screens"></p>

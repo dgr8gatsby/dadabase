@@ -94,4 +94,26 @@ router.get ('/loaddata', (req, res) => {
     .catch (console.error.bind (console, `Bulk update error!`));
 });
 
+// End point for returing one random joke from the Mongo database
+router.get ('/joke/:id', (req, res) => {
+  // Connect to the Mongoose DB
+  mongoose.connect (
+    mongo.config.URL + '/' + mongo.config.DB_NAME,
+    mongo.config.OPTIONS
+  );
+
+  // Reference the schema for a Joke
+  const Joke = jokeSchema;
+  Joke.find ({_id: req.params.id}, (err, joke) => {
+    if (err) {
+      console.log (err);
+      res.status (404).send ('Joke Not Found');
+    } else {
+      // Generate an etag for a joke using _id + _version of document
+      res.set ('etag', `${joke[0]._id}_${joke[0].revision}`);
+      res.send (joke[0]);
+    }
+  });
+});
+
 module.exports = router;

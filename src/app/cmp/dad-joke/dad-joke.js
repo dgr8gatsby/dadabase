@@ -1,6 +1,6 @@
 const ELEMENT_NAME = 'dad-joke';
 import template from './dad-joke.html.js';
-import templateOneLiner from './dad-joke-one-liner.html';
+import templateOneLiner from './dad-joke-one-liner.html.js';
 
 import style from './dad-joke.css.js';
 

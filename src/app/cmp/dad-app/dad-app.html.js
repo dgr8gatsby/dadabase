@@ -8,6 +8,9 @@ export default (style, _props) => `
                 <li>
                     <dad-link link-name="View Joke" link-route="dad-joke"></dad-link>
                 </li>
+                <li>
+                    <dad-link link-name="Buy me a ☕️" link-route"buy-me-a-coffee"></dad-link>
+                </li>
             </ul>
         </nav>
     </header>

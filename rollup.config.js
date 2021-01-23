@@ -27,7 +27,7 @@ export default {
         {src: 'src/app/dad_404.html', dest: 'public'},
         {src: 'src/app/favicon.ico', dest: 'public'},
         {src: 'src/svg/mustache.svg', dest: 'public/svg'},
-        {src: 'src/img/*', dest: 'public/img'},
+        {src: 'src/app/img/*', dest: 'public/img'},
         {src: 'src/app/pwa-images/*', dest: 'public'},
         {src: 'src/app/cmp', dest: 'public'},
       ],

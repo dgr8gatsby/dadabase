@@ -10,6 +10,7 @@ export default class DadApp extends HTMLElement {
   constructor () {
     super ();
     this.handleNavigate = this.handleNavigate.bind (this);
+    this.handlePop = this.handlePop.bind (this);
     this.shadow = this.attachShadow ({
       mode: 'open',
     });
@@ -47,7 +48,11 @@ export default class DadApp extends HTMLElement {
     this.displayJoke (joke);
   }
 
-  async fetchJokeById (id) {}
+  async fetchJokeById (id) {
+    const response = await fetch (`/api/joke/${id}`);
+    let joke = await response.json ();
+    this.displayJoke (joke);
+  }
 
   // Render a component in the placeholder for a screen
   displayScreen (name) {
@@ -57,15 +62,26 @@ export default class DadApp extends HTMLElement {
   }
 
   displayJoke (joke) {
-    let RandomtDadJoke = new DadJoke (joke);
-
+    let RandomdDadJoke = new DadJoke (joke);
+    history.pushState (
+      {
+        id: joke._id,
+      },
+      'joke',
+      joke._id
+    );
     const screenElement = this.shadowRoot.querySelector ("p[name='screens']");
     screenElement.innerHTML = '';
-    screenElement.appendChild (RandomtDadJoke);
+    screenElement.appendChild (RandomdDadJoke);
+  }
+
+  handlePop (e) {
+    this.fetchJokeById (e.state.id);
   }
 
   connectedCallback () {
     this.shadowRoot.addEventListener ('navigate', this.handleNavigate);
+    window.addEventListener ('popstate', this.handlePop);
     this.render ();
     this.loadScreen ();
   }

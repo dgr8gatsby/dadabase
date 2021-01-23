@@ -5,7 +5,7 @@ const express = require ('express');
 const router = express.Router ();
 
 // End point for returing one random joke from the Mongo database
-router.get ('/joke/:id', (req, res) => {
+router.get ('/:id', (req, res) => {
   // Connect to the Mongoose DB
   mongoose.connect (
     mongo.config.URL + '/' + mongo.config.DB_NAME,

@@ -3,13 +3,14 @@ export default (style, _props) => `
 <div class="grid">
     <header class="header">
         <div class="logo"><img class="logo" src='svg/mustache.svg' alt='a mustache icon used for a logo'/></div>
+        <dad-router></dad-router>
         <nav>
             <ul>    
                 <li>
-                    <dad-link link-name="View Joke" link-route="dad-joke"></dad-link>
+                    <a href="#/random">View Joke</a>
                 </li>
                 <li>
-                    <dad-link link-name="Buy me a ☕️" link-route"buy-me-a-coffee"></dad-link>
+                    <a href="https://www.buymeacoffee.com/greatgatsby" target="_blank">Buy me a ☕️</a>
                 </li>
             </ul>
         </nav>

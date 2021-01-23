@@ -68,6 +68,25 @@ export default `
     .hide {
         display:none;
     }
+
+    a {     
+        color: black;
+        padding: 12px;
+        text-decoration: none;
+        font-size: 14px; 
+        line-height: 25px;
+        border-radius: 4px;
+        margin: 1px;
+    }
+    a:hover {
+        border: 1px solid #ddd;
+        color: black;
+        margin: 0px;
+    }
+    a.active {
+        background-color: dodgerblue;
+        color: white;
+    }
 `;
 
 // https://css-tricks.com/things-ive-learned-css-grid-layout/

@@ -3,26 +3,42 @@ import template from './dad-app.html.js';
 import style from './dad-app.css.js';
 import _DadLink from '../dad-link/dad-link.js';
 import DadJoke from '../dad-joke/dad-joke.js';
+import Navigo from 'navigo';
 
+const router = new Navigo ('/', {hash: true});
 const DEFAULT_SCREEN = 'dad-joke';
 
 export default class DadApp extends HTMLElement {
   constructor () {
     super ();
-    this.handleNavigate = this.handleNavigate.bind (this);
-    this.handlePop = this.handlePop.bind (this);
     this.shadow = this.attachShadow ({
       mode: 'open',
+    });
+
+    router.on ('/', async () => {});
+
+    router.on ('/coffee', () => {
+      alert ('coffee!');
+    });
+
+    router.on ('/random', async () => {
+      let joke = await this.fetchRandomJoke ();
+      this.currentJoke = joke;
+      router.navigate (`/joke/${joke._id}`);
+    });
+
+    router.on ('/joke/:id', async url => {
+      if (this.currentJoke !== null && this.currentJoke._id === url.data.id) {
+        this.displayJoke (this.currentJoke);
+      } else {
+        this.fetchJokeById (url.data.id);
+      }
     });
   }
 
   props = {};
   screen = null;
-
-  // Response to SPA navigation events
-  handleNavigate (e) {
-    this.loadScreen (e.detail);
-  }
+  currentJoke = null;
 
   // Dynamically load components
   async loadScreen (name = DEFAULT_SCREEN) {
@@ -45,7 +61,7 @@ export default class DadApp extends HTMLElement {
   async fetchRandomJoke () {
     const response = await fetch ('/api/random');
     let joke = await response.json ();
-    this.displayJoke (joke);
+    return joke;
   }
 
   async fetchJokeById (id) {
@@ -63,27 +79,14 @@ export default class DadApp extends HTMLElement {
 
   displayJoke (joke) {
     let RandomdDadJoke = new DadJoke (joke);
-    history.pushState (
-      {
-        id: joke._id,
-      },
-      'joke',
-      joke._id
-    );
     const screenElement = this.shadowRoot.querySelector ("p[name='screens']");
     screenElement.innerHTML = '';
     screenElement.appendChild (RandomdDadJoke);
   }
 
-  handlePop (e) {
-    this.fetchJokeById (e.state.id);
-  }
-
   connectedCallback () {
-    this.shadowRoot.addEventListener ('navigate', this.handleNavigate);
-    window.addEventListener ('popstate', this.handlePop);
     this.render ();
-    this.loadScreen ();
+    //this.loadScreen ();
   }
 
   render () {

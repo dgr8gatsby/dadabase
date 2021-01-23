@@ -7,9 +7,11 @@
     "test": "jest",
     "build": "rollup -c",
     "watch": "rollup -c -w",
-    "start": "nodemon server.js",
+    "local": "nodemon server.js",
     "clean": "rimraf .cache .tmp public",
-    "dev": "npm-run-all --parallel watch start"
+    "dev": "npm-run-all --parallel watch local",
+    "start": "node server.js",
+    "serve": "npm-run-all --parallel build start"
   },
   "repository": {
     "type": "git",
@@ -30,7 +32,8 @@
     "ejs": "^3.1.5",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
-    "mongodb": "^3.6.3"
+    "mongodb": "^3.6.3",
+    "navigo": "^8.7.2"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",

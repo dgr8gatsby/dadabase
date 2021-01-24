@@ -3,7 +3,7 @@ const cacheName = 'staledadjokes_v3';
 const APPFILES = [
   '/index.html',
   '/index.css',
-  //   '/index.js',
+  '/index.js',
   '/favicon.ico',
   '/bundle.js',
   '/svg/mustache.svg',

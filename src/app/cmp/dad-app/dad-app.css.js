@@ -23,18 +23,19 @@ export default `
             font-size: 10vw;
             align-self: center; 
         }
+        header {
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: 100px;
+        }
     }
 
-    .header{
-        margin-top: 15px;
-    }
     .wide, .hero, .header, .footer {
         grid-column: 1/-1
     }
 
     main {
-        padding: 50px;
-        font-size: 8vw;
+        padding: 10px;
+        font-size: 6vw;
     }
 
     footer, header {
@@ -47,9 +48,12 @@ export default `
     }
 
     header {
-        display: flex;
+        display: inline-grid;
+        grid-template-columns: repeat(3,1fr);
+        grid-template-rows: 25px;
         align-items: center;
-        margin: 2em;
+        justify-items: center;
+        margin: 0px;
     }
 
     .logo, nav{
@@ -81,11 +85,74 @@ export default `
     a:hover {
         border: 1px solid #ddd;
         color: black;
-        margin: 0px;
+        margin: -5px;
+        background-color:#EB8400;
+        font-size: 28px;
     }
     a.active {
         background-color: dodgerblue;
         color: white;
+    }
+
+    .coffee{
+        position: fixed;
+        bottom: 25px;
+        right: 15px;
+        padding: 8px;
+    }
+
+    button {
+        padding: 0;
+        border: none;
+        font: inherit;
+        color: inherit;
+        background-color: transparent;
+        cursor: hand;
+    }
+
+    .btn {
+        /* default for <button>, but useful for <a> */
+        display: inline-block;
+        text-align: center;
+        text-decoration: none;
+      
+        /* create a small space when buttons wrap on 2 lines */
+        margin: 2px 0;
+      
+        /* invisible border (will be colored on hover/focus) */
+        border: solid 1px transparent;
+        border-radius: 4px;
+      
+        /* size comes from text & padding (no width/height) */
+        padding: 0.5em 1em;
+      
+        /* make sure colors have enough contrast! */
+        color: #EB8400;
+        background-color: #FDFBD0;
+
+        transition: font-size .5s;
+      }
+
+      /* inverse colors on hover */
+    .btn:hover {
+        font-size: 200%;
+        animation-name: grow;
+        animation-duration: .5s;
+    }
+
+    /* make sure we have a visible focus ring */
+    .btn:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.5),
+            0 0 0 1.5px rgba(255, 105, 180, 0.5);
+    }
+
+    /******************************
+     * Animations
+     */
+    @keyframes grow {
+        from {font-size: 100%}
+        to {font-size: 200%}
     }
 `;
 

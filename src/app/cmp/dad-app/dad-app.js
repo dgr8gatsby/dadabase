@@ -14,6 +14,7 @@ export default class DadApp extends HTMLElement {
       mode: 'open',
     });
     this.next = this.next.bind (this);
+    this.prev = this.prev.bind (this);
     this.getInitialJokes ();
 
     // handle application routes
@@ -91,10 +92,24 @@ export default class DadApp extends HTMLElement {
     router.navigate (`joke/${this.jokes[this.currentJoke]}`);
     //this.fetchJokeById (this.jokes[this.currentJoke]);
   }
+
+  prev () {
+    if (this.currentJoke > 1) {
+      this.currentJoke--;
+    } else {
+      this.currentJoke = this.jokes.length - 1;
+    }
+
+    router.navigate (`joke/${this.jokes[this.currentJoke]}`);
+    //this.fetchJokeById (this.jokes[this.currentJoke]);
+  }
+
   connectedCallback () {
     this.render ();
     const nextButton = this.shadowRoot.querySelector ("button[name='next']");
+    const prevButton = this.shadowRoot.querySelector ("button[name='prev']");
     nextButton.addEventListener ('click', this.next);
+    prevButton.addEventListener ('click', this.prev);
   }
 
   render () {

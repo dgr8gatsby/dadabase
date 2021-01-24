@@ -3,13 +3,26 @@ export default `
     font-family: var(--app-font-family);
 }
 
+/* Large Screen */
+    @media (min-width: 700px) {
+    .headline {
+        font-size= 6vw;
+    }
+
+    .punchline {
+        font-size: 4vw;
+        margin-top: 50px;;
+        text-align:right;
+    }
+}
+
 .headline {
-    font-size= 6vw;
+    font-size= 4vw;
 }
 
 .punchline {
     font-size: 4vw;
-    margin-top: var(--app-margin-top, 50px);
+    margin-top: 10px;
     text-align:right;
 }
 

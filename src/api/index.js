@@ -127,17 +127,21 @@ router.get ('/joke/:id', (req, res) => {
   );
 
   // Reference the schema for a Joke
-  const Joke = jokeSchema;
-  Joke.find ({_id: req.params.id}, (err, joke) => {
-    if (err) {
-      console.log (err);
-      res.status (404).send ('Joke Not Found');
-    } else {
-      // Generate an etag for a joke using _id + _version of document
-      res.set ('etag', `${joke[0]._id}_${joke[0].revision}`);
-      res.send (joke[0]);
-    }
-  });
+  if (req.params.id != undefined) {
+    const Joke = jokeSchema;
+    Joke.find ({_id: req.params.id}, (err, joke) => {
+      if (err) {
+        console.log (err);
+        res.status (404).send ('Joke Not Found');
+      } else {
+        // Generate an etag for a joke using _id + _version of document
+        res.set ('etag', `${joke[0]._id}_${joke[0].revision}`);
+        res.send (joke[0]);
+      }
+    });
+  } else {
+    res.send ('id was undefined');
+  }
 });
 
 module.exports = router;

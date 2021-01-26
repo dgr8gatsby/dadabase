@@ -5,16 +5,19 @@ const path = require ('path'); // Use path to help with directory paths
 const bodyParser = require ('body-parser'); // Use body-parser to help parse POST JSON objects
 const api = require ('./src/api'); // Routes for base server API
 const url = require ('./src/url');
+const cors = require ('cors');
 
 const app = express ();
 const PORT = process.env.PORT;
 
 app.set ('view engine', 'ejs');
 app.set ('views', './src/api/views');
+app.use (cors ());
 app.use (bodyParser.urlencoded ({extended: true}));
 app.use (express.static (path.join (__dirname, 'public')));
-app.use ('/', url);
+//app.use ('/', url);
 app.use ('/api', api);
+
 app.get ('/sw.js', (req, res) => {
   res.sendFile (path.resolve (__dirname, 'public', 'sw.js'));
 });

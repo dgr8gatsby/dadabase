@@ -6,7 +6,7 @@ export default `
 /* Large Screen */
     @media (min-width: 700px) {
     .headline {
-        font-size= 6vw;
+        font-size:6vw;
     }
 
     .punchline {
@@ -17,7 +17,7 @@ export default `
 }
 
 .headline {
-    font-size= 4vw;
+    font-size:4vw;
 }
 
 .punchline {

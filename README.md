@@ -5,8 +5,8 @@ yarn start
 
 # Components
 
-* <dad-app>
-* <dad-joke>
+* dad-app - The main application component
+* dad-joke - The component that renders a joke
   
 # API
 

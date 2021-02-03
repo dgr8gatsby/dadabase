@@ -1,7 +1,7 @@
 # dadabase
 
-`yarn install`
-`yarn start`
+* `yarn install`
+* `yarn start`
 
 # Components
 

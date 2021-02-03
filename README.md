@@ -1,7 +1,7 @@
 # dadabase
 
-yarn install
-yarn start
+`yarn install`
+`yarn start`
 
 # Components
 
@@ -10,6 +10,6 @@ yarn start
   
 # API
 
-/api/loaddata - adds data to mongo db from local file
-/api/joke/:id - fetches a specific joke
-/api/jokes - returns 10 random joke ids
+* /api/loaddata - adds data to mongo db from local file
+* /api/joke/:id - fetches a specific joke
+* /api/jokes - returns 10 random joke ids

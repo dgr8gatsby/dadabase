@@ -1,17 +1,17 @@
-const mongo = require ('../../mongo.config'); // Use Mongo db for data management
-const mongoose = require ('mongoose'); // Use Mongoose for data schema
-const jokeSchema = require ('../models/joke.js');
-const express = require ('express');
-const router = express.Router ();
-const data = require ('../data/jokes.json');
+const mongo = require('../../mongo.config'); // Use Mongo db for data management
+const mongoose = require('mongoose'); // Use Mongoose for data schema
+const jokeSchema = require('../models/joke.js');
+const express = require('express');
+const router = express.Router();
+const data = require('../data/jokes.json');
 
 // End point for adding new Joke documents to the mongo Database
-router.post ('/addjoke', (req, res) => {
+router.post('/addjoke', (req, res) => {
   // Log requests from the client in the console for debugging
-  console.log (req.body);
+  console.log(req.body);
 
   // Connect to the Mongoose DB
-  mongoose.connect (
+  mongoose.connect(
     mongo.config.URL + '/' + mongo.config.DB_NAME,
     mongo.config.OPTIONS
   );
@@ -20,7 +20,7 @@ router.post ('/addjoke', (req, res) => {
   const Joke = jokeSchema;
 
   // Create a new Joke Object
-  const newJoke = new Joke ({
+  const newJoke = new Joke({
     type: req.body.type,
     headline: req.body.headline,
     punchline: req.body.punchline,
@@ -28,19 +28,19 @@ router.post ('/addjoke', (req, res) => {
   });
 
   // Try to save the new joke
-  newJoke.updateOne (
+  newJoke.updateOne(
     {
       headline: req.body.headline,
       punchline: req.body.punchline,
       type: req.body.type,
       why: req.body.why,
     },
-    {upsert: true},
+    { upsert: true },
     error => {
       if (error) {
-        console.error (error);
+        console.error(error);
       } else {
-        res.end ('{"success" : "New joke added successfully", "status" : 200}');
+        res.end('{"success" : "New joke added successfully", "status" : 200}');
       }
     }
   );
@@ -49,22 +49,22 @@ router.post ('/addjoke', (req, res) => {
 /****************************************************************
  * GET RANDOM JOKE
  ****************************************************************/
-router.get ('/random', (req, res) => {
+router.get('/random', (req, res) => {
   // Connect to the Mongoose DB
-  mongoose.connect (
+  mongoose.connect(
     mongo.config.URL + '/' + mongo.config.DB_NAME,
     mongo.config.OPTIONS
   );
 
   // Reference the schema for a Joke
   const Joke = jokeSchema;
-  let randomJoke = Joke.aggregate ([{$sample: {size: 1}}], (err, joke) => {
+  let randomJoke = Joke.aggregate([{ $sample: { size: 1 } }], (err, joke) => {
     if (err) {
-      console.log (err);
+      console.log(err);
     } else {
       // Generate an etag for a joke using _id + _version of document
-      res.set ('etag', `${joke[0]._id}_${joke[0].revision}`);
-      res.send (joke[0]);
+      res.set('etag', `${joke[0]._id}_${joke[0].revision}`);
+      res.send(joke[0]);
     }
   });
 });
@@ -72,19 +72,21 @@ router.get ('/random', (req, res) => {
 /****************************************************************
  * GET JOKES
  ****************************************************************/
-router.get ('/jokes', async (req, res) => {
+router.get('/jokes', async (req, res) => {
   // Connect to the Mongoose DB
-  mongoose.connect (
+  mongoose.connect(
     mongo.config.URL + '/' + mongo.config.DB_NAME,
     mongo.config.OPTIONS
   );
 
-  jokeSchema.aggregate ([{$sample: {size: 10}}], (err, jokes) => {
+  jokeSchema.aggregate([{ $sample: { size: 10 } }], (err, jokes) => {
     if (err) {
-      console.log (err);
+      console.log(err);
     } else {
-      let ids = jokes.map (value => value._id);
-      res.send (ids);
+      let items = {};
+      items.items = jokes;
+      console.log(items);
+      res.send(items);
     }
   });
 });
@@ -92,9 +94,9 @@ router.get ('/jokes', async (req, res) => {
 /****************************************************************
  * LOAD SAMPLE DATA
  ****************************************************************/
-router.get ('/loaddata', (req, res) => {
+router.get('/loaddata', (req, res) => {
   // Connect to the Mongoose DB
-  mongoose.connect (
+  mongoose.connect(
     mongo.config.URL + '/' + mongo.config.DB_NAME,
     mongo.config.OPTIONS
   );
@@ -102,26 +104,26 @@ router.get ('/loaddata', (req, res) => {
   // Reference the schema for a Joke
   const Joke = jokeSchema;
 
-  const bulkUpdate = data.map (doc => ({
+  const bulkUpdate = data.map(doc => ({
     updateOne: {
-      filter: {headline: doc.headline},
+      filter: { headline: doc.headline },
       update: doc,
       upsert: true,
     },
   }));
 
-  Joke.bulkWrite (bulkUpdate)
-    .then (result => {
-      console.log (`Bulk update ok: ${result}`);
-      res.send (result);
+  Joke.bulkWrite(bulkUpdate)
+    .then(result => {
+      console.log(`Bulk update ok: ${result}`);
+      res.send(result);
     })
-    .catch (console.error.bind (console, `Bulk update error!`));
+    .catch(console.error.bind(console, `Bulk update error!`));
 });
 
 // End point for returing one random joke from the Mongo database
-router.get ('/joke/:id', (req, res) => {
+router.get('/jokes/:id', (req, res) => {
   // Connect to the Mongoose DB
-  mongoose.connect (
+  mongoose.connect(
     mongo.config.URL + '/' + mongo.config.DB_NAME,
     mongo.config.OPTIONS
   );
@@ -129,18 +131,18 @@ router.get ('/joke/:id', (req, res) => {
   // Reference the schema for a Joke
   if (req.params.id != undefined) {
     const Joke = jokeSchema;
-    Joke.find ({_id: req.params.id}, (err, joke) => {
+    Joke.find({ _id: req.params.id }, (err, joke) => {
       if (err) {
-        console.log (err);
-        res.status (404).send ('Joke Not Found');
+        console.log(err);
+        res.status(404).send('Joke Not Found');
       } else {
         // Generate an etag for a joke using _id + _version of document
-        res.set ('etag', `${joke[0]._id}_${joke[0].revision}`);
-        res.send (joke[0]);
+        res.set('etag', `${joke[0]._id}_${joke[0].revision}`);
+        res.send(joke[0]);
       }
     });
   } else {
-    res.send ('id was undefined');
+    res.send('id was undefined');
   }
 });
 

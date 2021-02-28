@@ -5,13 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "jest",
-    "build": "rollup -c",
-    "watch": "rollup -c -w",
-    "local": "nodemon server.js",
-    "clean": "rimraf .cache .tmp public",
-    "dev": "npm-run-all --parallel watch local",
-    "start": "node server.js",
-    "serve": "npm-run-all --parallel build start"
+    "dev": "nodemon server.js",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",

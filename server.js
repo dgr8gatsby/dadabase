@@ -16,7 +16,7 @@ app.use (cors ());
 app.use (bodyParser.urlencoded ({extended: true}));
 app.use (express.static (path.join (__dirname, 'public')));
 //app.use ('/', url);
-app.use ('/api', api);
+app.use ('/', api);
 
 app.get ('/sw.js', (req, res) => {
   res.sendFile (path.resolve (__dirname, 'public', 'sw.js'));

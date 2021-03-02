@@ -146,4 +146,24 @@ router.get('/jokes/:id', (req, res) => {
   }
 });
 
+router.get('/meta',(req,res) =>{
+  // Connect to the Mongoose DB
+  mongoose.connect(
+    mongo.config.URL + '/' + mongo.config.DB_NAME,
+    mongo.config.OPTIONS
+  );
+  
+  let metadata = {};
+
+  jokeSchema.countDocuments({revision:{$gte:0}}, (err, meta) => {
+    if (err) {
+      console.log(err);
+    } else {
+      metadata.jokeCount = meta;
+      console.log(metadata);
+      res.send(metadata);
+    }
+  })
+})
+
 module.exports = router;

@@ -5,7 +5,8 @@ const JokeSchema = new mongoose.Schema ({
   punchline: {type: String, required: false},
   type: {type: String, enum: ['question', 'oneliner'], required: true},
   why: {type: String, required: false},
-  revision: {type: Number, required: true, default: 0}
+  revision: {type: Number, required: true, default: 0},
+  renders:{type:Number,  required: true, default: 0}
 });
 
 // Export the model

@@ -8,7 +8,7 @@ const data = require('../data/jokes.json');
 // End point for adding new Joke documents to the mongo Database
 router.post('/addjoke', (req, res) => {
   // Log requests from the client in the console for debugging
-  console.log(req.body);
+  //console.log(req.body);
 
   // Connect to the Mongoose DB
   mongoose.connect(
@@ -139,6 +139,7 @@ router.get('/jokes/:id', (req, res) => {
         // Generate an etag for a joke using _id + _version of document
         res.set('etag', `${joke[0]._id}_${joke[0].revision}`);
         res.send(joke[0]);
+        addRender(joke[0]._id);
       }
     });
   } else {
@@ -165,5 +166,24 @@ router.get('/meta',(req,res) =>{
     }
   })
 })
+
+function addRender(id){
+  // Connect to the Mongoose DB
+  mongoose.connect(
+    mongo.config.URL + '/' + mongo.config.DB_NAME,
+    mongo.config.OPTIONS
+  );
+
+
+  jokeSchema.findByIdAndUpdate(
+    id,
+    {$inc: {renders: 1}},
+    (error,data) => {
+      if(error){
+        console.log(error);
+      }
+    }
+  )
+}
 
 module.exports = router;

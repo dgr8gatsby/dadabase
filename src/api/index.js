@@ -147,16 +147,32 @@ router.get('/jokes/:id', (req, res) => {
   }
 });
 
-router.get('/meta',(req,res) =>{
+router.get('/meta', (req, res) => {
   // Connect to the Mongoose DB
   mongoose.connect(
     mongo.config.URL + '/' + mongo.config.DB_NAME,
     mongo.config.OPTIONS
   );
-  
+
   let metadata = {};
 
-  jokeSchema.countDocuments({revision:{$gte:0}}, (err, meta) => {
+  jokeSchema.aggregate(
+    [{$match: {renders: {$gt: 0}}},
+    {$group: {
+      _id:null,
+      totalRenders:{$sum:"$renders"}
+      }
+    }],
+    (err,meta) => {
+      if(err){
+      console.log(err)
+      } else {
+        console.log(meta);
+      metadata.totalRenders = meta;
+    }
+  })
+
+  jokeSchema.countDocuments({ revision: { $gte: 0 } }, (err, meta) => {
     if (err) {
       console.log(err);
     } else {
@@ -167,7 +183,9 @@ router.get('/meta',(req,res) =>{
   })
 })
 
-function addRender(id){
+
+
+function addRender(id) {
   // Connect to the Mongoose DB
   mongoose.connect(
     mongo.config.URL + '/' + mongo.config.DB_NAME,
@@ -177,9 +195,9 @@ function addRender(id){
 
   jokeSchema.findByIdAndUpdate(
     id,
-    {$inc: {renders: 1}},
-    (error,data) => {
-      if(error){
+    { $inc: { renders: 1 } },
+    (error, data) => {
+      if (error) {
         console.log(error);
       }
     }

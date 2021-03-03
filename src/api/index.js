@@ -168,7 +168,7 @@ router.get('/meta', (req, res) => {
       console.log(err)
       } else {
         console.log(meta);
-      metadata.totalRenders = meta;
+      metadata.totalRenders = meta[0].totalRenders;
     }
   })
 

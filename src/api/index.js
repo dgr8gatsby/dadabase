@@ -79,16 +79,18 @@ router.get('/jokes', async (req, res) => {
     mongo.config.OPTIONS
   );
 
-  jokeSchema.aggregate([{ $sample: { size: 10 } }], (err, jokes) => {
-    if (err) {
-      console.log(err);
+  jokeSchema.aggregate([
+    { $match: { tellAfter: { $exists: false } } },
+    { $limit: 10 }
+  ], (error, jokes) => {
+    if (error) {
+      console.log(`/jokes error: ${error}`);
     } else {
       let items = {};
       items.items = jokes;
-      console.log(items);
       res.send(items);
     }
-  });
+  })
 });
 
 /****************************************************************
@@ -131,6 +133,7 @@ router.get('/jokes/:id', (req, res) => {
   // Reference the schema for a Joke
   if (req.params.id != undefined) {
     const Joke = jokeSchema;
+    let jokeObject;
     Joke.find({ _id: req.params.id }, (err, joke) => {
       if (err) {
         console.log(err);
@@ -138,9 +141,24 @@ router.get('/jokes/:id', (req, res) => {
       } else {
         // Generate an etag for a joke using _id + _version of document
         res.set('etag', `${joke[0]._id}_${joke[0].revision}`);
-        res.send(joke[0]);
+        // res.send(joke[0]);
+        jokeObject = joke[0];
         addRender(joke[0]._id);
       }
+    }).then(() => {
+      Joke.find({ tellAfter: req.params.id }, (err, joke) => {
+        if (err) {
+          console.log(`/jokes ${err}`);
+        } else {
+          if (joke[0]) {
+            console.log(`related joke: ${joke[0]._id}`);
+            jokeObject.nextJokeId = joke[0]._id
+          } 
+          console.log(jokeObject);
+
+          res.send(jokeObject);
+        }
+      })
     });
   } else {
     res.send('id was undefined');
@@ -157,20 +175,21 @@ router.get('/meta', (req, res) => {
   let metadata = {};
 
   jokeSchema.aggregate(
-    [{$match: {renders: {$gt: 0}}},
-    {$group: {
-      _id:null,
-      totalRenders:{$sum:"$renders"}
+    [{ $match: { renders: { $gt: 0 } } },
+    {
+      $group: {
+        _id: null,
+        totalRenders: { $sum: "$renders" }
       }
     }],
-    (err,meta) => {
-      if(err){
-      console.log(err)
+    (err, meta) => {
+      if (err) {
+        console.log(err)
       } else {
         console.log(meta);
-      metadata.totalRenders = meta[0].totalRenders;
-    }
-  })
+        metadata.totalRenders = meta[0].totalRenders;
+      }
+    })
 
   jokeSchema.countDocuments({ revision: { $gte: 0 } }, (err, meta) => {
     if (err) {

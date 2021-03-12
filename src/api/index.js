@@ -77,7 +77,7 @@ router.get('/jokes', async (req, res) => {
   mongoose.connect(
     mongo.config.URL + '/' + mongo.config.DB_NAME,
     mongo.config.OPTIONS
-  );
+  ).catch(error => handleError(error));
 
   jokeSchema.aggregate([
     { $match: { tellAfter: { $exists: false } } },
@@ -92,6 +92,10 @@ router.get('/jokes', async (req, res) => {
     }
   })
 });
+
+function handleError(error){
+  console.log(`Connection Error: ${error}`)
+}
 
 /****************************************************************
  * LOAD SAMPLE DATA

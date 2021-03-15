@@ -4,6 +4,18 @@ const jokeSchema = require('../models/joke.js');
 const express = require('express');
 const router = express.Router();
 const data = require('../data/jokes.json');
+const PAGE_SIZE = mongo.apiConfig.PAGE_SIZE;
+
+try {
+  // Connect to the Mongoose DB
+  mongoose.connect(
+    mongo.config.URL + '/' + mongo.config.DB_NAME,
+    mongo.config.OPTIONS
+  );
+} catch (error) {
+  console.log(`Connection error: ${error}`);
+}
+
 
 // End point for adding new Joke documents to the mongo Database
 router.post('/addjoke', (req, res) => {
@@ -50,12 +62,6 @@ router.post('/addjoke', (req, res) => {
  * GET RANDOM JOKE
  ****************************************************************/
 router.get('/random', (req, res) => {
-  // Connect to the Mongoose DB
-  mongoose.connect(
-    mongo.config.URL + '/' + mongo.config.DB_NAME,
-    mongo.config.OPTIONS
-  );
-
   // Reference the schema for a Joke
   const Joke = jokeSchema;
   let randomJoke = Joke.aggregate([{ $sample: { size: 1 } }], (err, joke) => {
@@ -73,15 +79,15 @@ router.get('/random', (req, res) => {
  * GET JOKES
  ****************************************************************/
 router.get('/jokes', async (req, res) => {
-  // Connect to the Mongoose DB
-  mongoose.connect(
-    mongo.config.URL + '/' + mongo.config.DB_NAME,
-    mongo.config.OPTIONS
-  ).catch(error => handleError(error));
-
+  let jokes = await jokeSchema.find();
+  let items = {};
+  items.totalJokes = jokes.length;
+  items.items = jokes;
+  res.send(items);
+  /*
   jokeSchema.aggregate([
     { $match: { tellAfter: { $exists: false } } },
-    { $limit: 10 }
+    { $limit: 2 }
   ], (error, jokes) => {
     if (error) {
       console.log(`/jokes error: ${error}`);
@@ -90,10 +96,25 @@ router.get('/jokes', async (req, res) => {
       items.items = jokes;
       res.send(items);
     }
-  })
+  }) */
 });
 
-function handleError(error){
+/****************************************************************
+ * GET JOKES ADD SUPPORT FOR PAGING
+ ****************************************************************/
+router.get('/jokes/page/:page', async (req, res) => {
+  let jokes = await jokeSchema.find()
+    .skip(PAGE_SIZE * (req.params.page - 1))
+    .limit(PAGE_SIZE);
+
+  let items = {};
+  items.totalPages = Math.ceil(await jokeSchema.countDocuments() / PAGE_SIZE);
+  items.page = req.params.page;
+  items.items = jokes;
+  res.send(items);
+})
+
+function handleError(error) {
   console.log(`Connection Error: ${error}`)
 }
 
@@ -101,12 +122,6 @@ function handleError(error){
  * LOAD SAMPLE DATA
  ****************************************************************/
 router.get('/loaddata', (req, res) => {
-  // Connect to the Mongoose DB
-  mongoose.connect(
-    mongo.config.URL + '/' + mongo.config.DB_NAME,
-    mongo.config.OPTIONS
-  );
-
   // Reference the schema for a Joke
   const Joke = jokeSchema;
 
@@ -126,14 +141,10 @@ router.get('/loaddata', (req, res) => {
     .catch(console.error.bind(console, `Bulk update error!`));
 });
 
-// End point for returing one random joke from the Mongo database
+/****************************************************************
+ * LOAD A JOKE BY ID
+ ****************************************************************/
 router.get('/jokes/:id', (req, res) => {
-  // Connect to the Mongoose DB
-  mongoose.connect(
-    mongo.config.URL + '/' + mongo.config.DB_NAME,
-    mongo.config.OPTIONS
-  );
-
   // Reference the schema for a Joke
   if (req.params.id != undefined) {
     const Joke = jokeSchema;
@@ -157,7 +168,7 @@ router.get('/jokes/:id', (req, res) => {
           if (joke[0]) {
             console.log(`related joke: ${joke[0]._id}`);
             jokeObject.nextJokeId = joke[0]._id
-          } 
+          }
           console.log(jokeObject);
 
           res.send(jokeObject);
@@ -169,13 +180,10 @@ router.get('/jokes/:id', (req, res) => {
   }
 });
 
+/****************************************************************
+ * LOAD BASIC METADATA
+ ****************************************************************/
 router.get('/meta', (req, res) => {
-  // Connect to the Mongoose DB
-  mongoose.connect(
-    mongo.config.URL + '/' + mongo.config.DB_NAME,
-    mongo.config.OPTIONS
-  );
-
   let metadata = {};
 
   jokeSchema.aggregate(
@@ -207,15 +215,10 @@ router.get('/meta', (req, res) => {
 })
 
 
-
+/****************************************************************
+ * LOG A RENDER ON THE DOCUMENT
+ ****************************************************************/
 function addRender(id) {
-  // Connect to the Mongoose DB
-  mongoose.connect(
-    mongo.config.URL + '/' + mongo.config.DB_NAME,
-    mongo.config.OPTIONS
-  );
-
-
   jokeSchema.findByIdAndUpdate(
     id,
     { $inc: { renders: 1 } },

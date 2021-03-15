@@ -30,7 +30,12 @@ const models = {
   joke: new mongoose.model ('jokes', jokeSchema),
 };
 
+const apiConfig = {
+  PAGE_SIZE: 2
+}
+
 module.exports = {
   config: config,
   models: models,
+  apiConfig: apiConfig
 };

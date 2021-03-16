@@ -6,7 +6,10 @@
     <title>Dad Jokes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="The dad joke application that makes dad jokes better, for all of us!" />
-    <link rel="stylesheet" href="../../index.css" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="og:title" content="<%=headline%>" />
+    <meta name="og:description" content="<%=punchline%>" />
+    <meta name="og:url" content="https://www.papajoke.com/jokes/<%= _id%>" />
     <style>
         body {
             width: 90%;
@@ -21,11 +24,9 @@
 </head>
 
 <body>
-    <dad-joke joke-id='<%= _id%>' joke-headline='<%=headline%>' joke-punchline='<%= punchline%>' joke-type='<%= type%>'
-        joke-why='<%= why%>'>
-    </dad-joke>
-    <script src='../../cmp/dad-joke/dad-joke.js' type='module'></script>
-
+    <div><%= _id%></div>
+    <div><%=headline%></div>
+    <div><%= punchline%></div>
+    <div><%= type%></div>
 </body>
-
 </html>

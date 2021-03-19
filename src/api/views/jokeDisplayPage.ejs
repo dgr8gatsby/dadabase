@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dad Jokes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="The dad joke application that makes dad jokes better, for all of us!" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="og:title" content="<%=headline%>" />
+    <meta name="og:description" content="<%=punchline%>" />
+    <meta name="og:url" content="https://www.papajoke.com/jokes/<%= _id%>" />
+    <meta name="og:image" content="https://www.papajoke.com/public/assets/mustache.png" />
+    <style>
+        body {
+            width: 90%;
+            height: 90%;
+            padding: 20px;
+        }
+
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 100px 1fr 100px;
+            width: 100vw;
+            height: 100vh;
+            ;
+        }
+
+        /********************************
+ * Nav
+ ********************************/
+        nav>div {
+            font-size: 1.6em;
+            min-height: 50px;
+            padding: 1rem 4rem;
+        }
+
+        nav {
+            display: grid;
+            justify-items: center;
+            text-align: center;
+            padding: 20px;
+            max-height: 100px;
+        }
+
+        @media (min-width: 700px) {
+            nav {
+                grid-template-columns: 1fr auto auto;
+                justify-items: start;
+            }
+        }
+
+        /********************************
+ * Main
+ ********************************/
+        main {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            justify-items: center;
+            column-gap: 10px;
+            padding: 20px;
+        }
+
+        /********************************
+ * Footer
+ ********************************/
+        footer {
+            display: grid;
+            justify-items: center;
+            padding: 20px;
+        }
+
+        .btn {
+            /* default for <button>, but useful for <a> */
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+
+            /* create a small space when buttons wrap on 2 lines */
+            margin: 0;
+
+            /* invisible border (will be colored on hover/focus) */
+            border: solid 1px transparent;
+            border-radius: 4px;
+
+            /* size comes from text & padding (no width/height) */
+            padding: 0;
+
+            /* make sure colors have enough contrast! */
+            color: #EB8400;
+            background-color: #FDFBD0;
+            font-size: x-large;
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+            filter: saturate(150%);
+        }
+
+        .btn:hover {
+            color: #9555af;
+            background-color: FDFBD0;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <article></article>
+        <footer></footer>
+    </main>
+    <div>
+        <%=headline%>
+    </div>
+    <div>
+        <%= punchline%>
+    </div>
+</body>
+
+</html>

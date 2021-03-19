@@ -15,7 +15,7 @@ router.get ('/social/:id', (req, res) => {
       res.status (404).send ('Joke Not Found');
     } else {
       console.log (joke[0]);
-      res.render ('onejoke', joke[0]); //(joke[0]);
+      res.render ('jokeDisplayPage', joke[0]); //(joke[0]);
     }
   });
 });

@@ -17,21 +17,20 @@ try {
 }
 
 
-// End point for adding new Joke documents to the mongo Database
+/****************************************************************
+ * The use case for this API is that users should be able to
+ * create new jokes. 
+ * 
+ * TODO: implement Authentication, only authenitcated users can submit
+ * TODO: or implement ALWAYS review process, and or both
+ ****************************************************************/
 router.post('/addjoke', (req, res) => {
-  // Log requests from the client in the console for debugging
-  //console.log(req.body);
-
-  // Connect to the Mongoose DB
   mongoose.connect(
     mongo.config.URL + '/' + mongo.config.DB_NAME,
     mongo.config.OPTIONS
   );
-
-  // Reference the schema for a Joke
   const Joke = jokeSchema;
 
-  // Create a new Joke Object
   const newJoke = new Joke({
     type: req.body.type,
     headline: req.body.headline,
@@ -39,7 +38,6 @@ router.post('/addjoke', (req, res) => {
     why: req.body.why,
   });
 
-  // Try to save the new joke
   newJoke.updateOne(
     {
       headline: req.body.headline,
@@ -155,9 +153,7 @@ router.get('/jokes/:id', (req, res) => {
         console.log(err);
         res.status(404).send('Joke Not Found');
       } else {
-        // Generate an etag for a joke using _id + _version of document
         res.set('etag', `${joke[0]._id}_${joke[0].revision}`);
-        // res.send(joke[0]);
         jokeObject = joke[0];
         addRender(joke[0]._id);
       }
@@ -167,11 +163,8 @@ router.get('/jokes/:id', (req, res) => {
           console.log(`/jokes ${err}`);
         } else {
           if (joke[0]) {
-            console.log(`related joke: ${joke[0]._id}`);
             jokeObject.nextJokeId = joke[0]._id
           }
-          console.log(jokeObject);
-
           res.send(jokeObject);
         }
       })
@@ -199,7 +192,6 @@ router.get('/meta', (req, res) => {
       if (err) {
         console.log(err)
       } else {
-        console.log(meta);
         metadata.totalRenders = meta[0].totalRenders;
       }
     })
@@ -209,23 +201,19 @@ router.get('/meta', (req, res) => {
       console.log(err);
     } else {
       metadata.jokeCount = meta;
-      console.log(metadata);
       res.send(metadata);
     }
   })
 })
 
 router.get ('/social/:id', (req, res) => {
-  console.log(`social route`)
-  // Reference the schema for a Joke
   const Joke = jokeSchema;
   Joke.find ({_id: req.params.id}, (err, joke) => {
     if (err) {
       console.log (err);
       res.status (404).send ('Joke Not Found');
     } else {
-      console.log (joke[0]);
-      res.render ('onejoke', joke[0]); //(joke[0]);
+      res.render ('jokeDisplayPage', joke[0]);
     }
   });
 });

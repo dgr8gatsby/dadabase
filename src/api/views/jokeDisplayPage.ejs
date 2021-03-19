@@ -94,20 +94,63 @@
             color: #9555af;
             background-color: FDFBD0;
         }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            min-height: -webkit-fill-available;
+        }
+
+        html {
+            background-color: var(--app-background-color);
+        }
+
+        :root {
+            --app-background-color: #FDFBD0
+        }
+
+        .headline {
+            font-size: 2em;
+        }
+
+        .punchline {
+            font-size: 1em;
+            margin-top: 10px;
+            text-align: right;
+        }
+
+        /* Large Screen */
+        @media (min-width: 768px) {
+            .headline {
+                font-size: 4em;
+            }
+
+            .punchline {
+                font-size: 2em;
+                margin-top: 50px;
+                ;
+                text-align: right;
+            }
+        }
     </style>
 </head>
 
 <body>
     <main>
-        <article></article>
+        <article>
+            <section class="headline">
+                <%=headline%>
+            </section>
+            <section class="punchline">
+                <%=punchline%>
+            </section>
+        </article>
         <footer></footer>
     </main>
-    <div>
-        <%=headline%>
-    </div>
-    <div>
-        <%= punchline%>
-    </div>
 </body>
 
 </html>

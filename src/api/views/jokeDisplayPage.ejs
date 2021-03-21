@@ -22,45 +22,32 @@
         .grid {
             display: grid;
             grid-template-columns: 1fr;
+            grid-template-areas: "head""article""foot";
             grid-template-rows: 100px 1fr 100px;
             width: 100vw;
             height: 100vh;
             ;
         }
 
-        nav>div {
-            font-size: 1.6em;
-            min-height: 50px;
-            padding: 1rem 4rem;
-        }
-
-        nav {
-            display: grid;
-            justify-items: center;
-            text-align: center;
-            padding: 20px;
-            max-height: 100px;
-        }
-
-        @media (min-width: 700px) {
-            nav {
-                grid-template-columns: 1fr auto auto;
-                justify-items: start;
-            }
-        }
 
         main {
             display: grid;
-            grid-template-columns: auto 1fr auto;
+            grid-template-rows: 100px 1fr 100px;
+            grid-template-columns: 1fr;
             justify-items: center;
             column-gap: 10px;
             padding: 20px;
+            height: 100%;
         }
 
         footer {
-            display: grid;
             justify-items: center;
             padding: 20px;
+        }
+
+        article {
+            height: 1fr;
+            width: 100%;
         }
 
         .btn {
@@ -136,11 +123,21 @@
                 text-align: right;
             }
         }
+
+        .headerImg{
+            max-width: 100px;
+        }
     </style>
 </head>
 
 <body>
     <main>
+        <header>
+            <img class="headerImg" src='../mustache.png' />
+            <% for (var i= 0; i < sources.length; i++) { %>
+                <a href="<%= sources[i].href%>"><%= sources[i].sourceIdentifier %></a>
+            <% } %>
+        </header>
         <article>
             <section class="headline">
                 <%=headline%>
@@ -149,7 +146,7 @@
                 <%=punchline%>
             </section>
         </article>
-        <footer></footer>
+        <footer>Served with 💛 from a Dadabase</footer>
     </main>
 </body>
 

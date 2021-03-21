@@ -143,7 +143,6 @@ router.get('/loaddata', (req, res) => {
  * LOAD A JOKE BY ID
  ****************************************************************/
 router.get('/jokes/:id', (req, res) => {
-  console.log(req);
   // Reference the schema for a Joke
   if (req.params.id != undefined) {
     const Joke = jokeSchema;
@@ -213,6 +212,7 @@ router.get ('/social/:id', (req, res) => {
       console.log (err);
       res.status (404).send ('Joke Not Found');
     } else {
+      console.log(`Social Server Page: ` + joke[0])
       res.render ('jokeDisplayPage', joke[0]);
     }
   });

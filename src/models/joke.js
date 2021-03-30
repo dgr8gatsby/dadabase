@@ -3,7 +3,7 @@ const mongoose = require ('mongoose');
 const LinkSchema = new mongoose.Schema ({
   href: {type: String, required: true, unique: true},
   sourceIdentifier: {type: String, required: false},
-  sourceType: {type: String, enum: ['twitter','facebook','linkedin','instagram']}
+  sourceType: {type: String, enum: ['twitter','facebook','linkedin','instagram','reddit','web']}
 });
 
 const Link = new mongoose.model ('Link', LinkSchema);

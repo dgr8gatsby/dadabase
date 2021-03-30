@@ -8,7 +8,9 @@
     <meta name="description" content="The dad joke application that makes dad jokes better, for all of us!" />
     <meta name="twitter:card" content="summary" />
     <meta name="og:title" content="<%=headline%>" />
+    <% if(punchline) { %>
     <meta name="og:description" content="<%=punchline%>" />
+    <% } %>
     <meta name="og:url" content="https://www.papajoke.com/jokes/<%= _id%>" />
     <meta name="og:image" content="https://www.papajoke.com/public/assets/mustache.png" />
     <style>
@@ -148,6 +150,15 @@
         </article>
         <footer>Served with 💛 from a Dadabase</footer>
     </main>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E0PVQ1MJ4X"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-E0PVQ1MJ4X');
+    </script>
 </body>
 
 </html>
